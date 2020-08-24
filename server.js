@@ -17,6 +17,14 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use("/api", router);
 
+const weather_DB_connection = mysql.createConnection({
+   host: "localhost",
+   port: 3210,
+   user: "ADMIN",
+   password: "ADMINROOTPASSWORD",
+   database: "WeatherAppV2Data"
+});
+
 router.get("/", function(request, response) {
     response.send('{"We":"Are here"}');
 });
