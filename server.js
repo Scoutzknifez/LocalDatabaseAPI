@@ -54,6 +54,12 @@ function testGet() {
     });
 }
 
+function testPut() {
+    return new Promise(function(resolve, reject) {
+        var query = "INSERT INTO WEATHER_FOR_TIME VALUES ()";
+    });
+}
+
 function submitWeather() {
 
 }
