@@ -36,9 +36,27 @@ router.get("/", function(request, response) {
     });
 });
 
-router.put("/subtest", function(request, response) {
-   console.log(request.body);
-   response.send(constants.resultSuccess);
+router.put("/submitweather", function(request, response) {
+    var data = request.body;
+    var query = "INSERT INTO WEATHER_FOR_TIME VALUES ("
+        + data.time + ", "
+        + data.location.latitude + ", "
+        + data.location.longitude +  ", "
+        + data.temperature +  ", "
+        + data.precipitationProbability +  ", "
+        + data.humidity +  ", "
+        + data.windSpeed +  ", "
+        + data.windBearing + ")";
+
+    weather_DB_connection.query(query, function(error, result) {
+        if (error) {
+            console.log(error);
+            response.send(constants.resultFailure);
+        } else {
+            console.log("Weather entry recorded successfully! " + query.substring(36));
+            response.send(constants.resultSuccess);
+        }
+    });
 });
 
 function testGet() {
@@ -52,18 +70,6 @@ function testGet() {
            }
         });
     });
-}
-
-function testPut() {
-    return new Promise(function(resolve, reject) {
-        var query = "INSERT INTO WEATHER_FOR_TIME VALUES ()";
-        // time, lat, long, temp, precip, humid, windspeed, windbearing
-        submitWeather();
-    });
-}
-
-function submitWeather() {
-
 }
 
 app.listen(3001, function() {
