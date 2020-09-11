@@ -51,7 +51,7 @@ router.put("/submitweather", function(request, response) {
     weather_DB_connection.query(query, function(error, result) {
         if (error) {
             console.log(error);
-            response.send(constants.resultFailure);
+            response.send(constants.resultFailure) ;
         } else {
             console.log("Weather entry recorded successfully! " + query.substring(36));
             response.send(constants.resultSuccess);
