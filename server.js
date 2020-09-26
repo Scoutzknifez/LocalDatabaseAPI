@@ -10,6 +10,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
 
+const serverPort = 3210;
+const sqlPort = 3001;
+
 // use these configurations to run
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -20,7 +23,7 @@ app.use("/api", router);
 
 const weather_DB_connection = mysql.createConnection({
    host: "192.168.1.130",
-   port: 3210,
+   port: sqlPort,
    user: "ADMIN",
    password: "ADMINROOTPASSWORD",
    database: "WeatherAppV2Data"
@@ -46,7 +49,7 @@ router.put("/submitweather", function(request, response) {
     weather_DB_connection.query(query, function(error, result) {
         if (error) {
             console.log(error);
-            response.send(constants.resultFailure) ;
+            response.send(constants.resultFailure);
         } else {
             console.log("Weather entry recorded successfully! " + query.substring(36));
             response.send(constants.resultSuccess);
@@ -67,6 +70,6 @@ router.put("/submitweather", function(request, response) {
     });
 }*/
 
-app.listen(3001, function() {
-    console.log("Server listening on port 3001...")
+app.listen(serverPort, function() {
+    console.log("Server listening on port " + serverPort + "...");
 });
