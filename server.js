@@ -1,6 +1,3 @@
-/*
-TEMP IMPORTS
- */
 const constants = require('./utility/constants.js');
 
 // required libraries
@@ -30,10 +27,8 @@ const weather_DB_connection = mysql.createConnection({
 });
 
 router.get("/", function(request, response) {
-    response.send('{"We":"Are here"}');
-    testGet().then(result => {
-        console.log(result[4000]);
-    });
+    response.send(constants.resultSuccess);
+    console.log("Pinged GET /api/");
 });
 
 router.put("/submitweather", function(request, response) {
@@ -59,7 +54,7 @@ router.put("/submitweather", function(request, response) {
     });
 });
 
-function testGet() {
+/*function testGet() {
     return new Promise(function(resolve, reject) {
         var query = "SELECT * FROM WEATHER_FOR_TIME";
         weather_DB_connection.query(query, function(err, result, fields) {
@@ -70,7 +65,7 @@ function testGet() {
            }
         });
     });
-}
+}*/
 
 app.listen(3001, function() {
     console.log("Server listening on port 3001...")
