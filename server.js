@@ -32,6 +32,17 @@ const weather_DB_connection = mysql.createConnection({
 router.get("/", function(request, response) {
     response.send(constants.resultSuccess);
     console.log("Pinged GET /api/");
+
+    /*return new Promise(function(resolve, reject) {
+        var query = "SELECT * FROM WEATHER_FOR_TIME";
+        weather_DB_connection.query(query, function(err, result, fields) {
+            if (err) {
+                throw err;
+            } else {
+                resolve(JSON.parse(JSON.stringify(result)));
+            }
+        });
+    });*/
 });
 
 router.put("/submitweather", function(request, response) {
@@ -56,19 +67,6 @@ router.put("/submitweather", function(request, response) {
         }
     });
 });
-
-/*function testGet() {
-    return new Promise(function(resolve, reject) {
-        var query = "SELECT * FROM WEATHER_FOR_TIME";
-        weather_DB_connection.query(query, function(err, result, fields) {
-           if (err) {
-               throw err;
-           } else {
-               resolve(JSON.parse(JSON.stringify(result)));
-           }
-        });
-    });
-}*/
 
 app.listen(serverPort, function() {
     console.log("Server listening on port " + serverPort + "...");
