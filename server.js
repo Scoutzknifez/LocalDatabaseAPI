@@ -33,21 +33,24 @@ router.get("/", function(request, response) {
     response.send(constants.resultSuccess);
     console.log("Pinged GET /api/");
 
-    /*return new Promise(function(resolve, reject) {
-        var query = "SELECT * FROM WEATHER_FOR_TIME";
+    return new Promise(function(resolve, reject) {
+        let query = "SELECT * FROM WEATHER_FOR_TIME";
         weather_DB_connection.query(query, function(err, result, fields) {
             if (err) {
                 throw err;
             } else {
-                resolve(JSON.parse(JSON.stringify(result)));
+                let resultArray = JSON.parse(JSON.stringify(result));
+                let lastEntry = resultArray[resultArray.length - 1];
+
+                resolve(lastEntry);
             }
         });
-    });*/
+    });
 });
 
 router.put("/submitweather", function(request, response) {
-    var data = request.body;
-    var query = "INSERT INTO WEATHER_FOR_TIME VALUES ("
+    let data = request.body;
+    let query = "INSERT INTO WEATHER_FOR_TIME VALUES ("
         + data.time + ", "
         + data.location.latitude + ", "
         + data.location.longitude +  ", "
