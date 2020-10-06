@@ -30,21 +30,23 @@ const weather_DB_connection = mysql.createConnection({
 });
 
 router.get("/", function(request, response) {
-    response.send(constants.resultSuccess);
     console.log("Pinged GET /api/");
 
-    return new Promise(function(resolve, reject) {
-        let query = "SELECT * FROM WEATHER_FOR_TIME";
-        weather_DB_connection.query(query, function(err, result, fields) {
-            if (err) {
-                throw err;
-            } else {
-                let resultArray = JSON.parse(JSON.stringify(result));
-                let lastEntry = resultArray[resultArray.length - 1];
+    let query = "SELECT * FROM WEATHER_FOR_TIME";
+    weather_DB_connection.query(query, function(err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            let resultArray = JSON.parse(JSON.stringify(result));
+            let lastEntry = resultArray[resultArray.length - 1];
 
-                resolve(lastEntry);
-            }
-        });
+            let responseBody = "{" +
+                constants.resultSuccess +
+                lastEntry +
+            "}";
+
+            response.send(responseBody);
+        }
     });
 });
 
